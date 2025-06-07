@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .routers import planos
+from routers import planos
 
 app = FastAPI(
     title="API de Planos Alimentares",
