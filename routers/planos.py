@@ -26,7 +26,12 @@ async def create_plano_mestre(plano_data: PlanoMestreCreate):
 @router.get("/", response_model=List[PlanoMestre])
 async def get_all_planos_mestre():
     planos_cursor = planos_mestre_collection.find()
-    planos_list = [PlanoMestre(**plano) for plano in planos_cursor]
+    
+    planos_list = []
+    for plano in planos_cursor:
+        plano["id"] = str(plano["_id"])
+        planos_list.append(plano)
+        
     return planos_list
 
 @router.get("/{plano_id}", response_model=PlanoMestreComItens)
