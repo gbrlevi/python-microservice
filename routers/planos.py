@@ -4,8 +4,6 @@ from pymongo import ReturnDocument
 from datetime import datetime, date
 
 # --- INÍCIO DA CORREÇÃO ---
-# Trocamos as importações relativas ('..') por importações absolutas ('app.')
-# Isso diz ao Python para sempre começar a busca a partir da pasta raiz do pacote 'app'.
 from models import PlanoMestreBase, PlanoMestre, PlanoMestreCreate, PlanoMestreComItens, ItemPlanoBase, ItemPlano, ItemPlanoCreate, PyObjectId
 from config import planos_mestre_collection, itens_plano_collection
 # --- FIM DA CORREÇÃO ---
@@ -28,7 +26,8 @@ async def create_plano_mestre(plano_data: PlanoMestreCreate):
 @router.get("/", response_model=List[PlanoMestre])
 async def get_all_planos_mestre():
     planos_cursor = planos_mestre_collection.find()
-    return list(planos_cursor)
+    planos_list = [PlanoMestre(**plano) for plano in planos_cursor]
+    return planos_list
 
 @router.get("/{plano_id}", response_model=PlanoMestreComItens)
 async def get_plano_mestre(plano_id: PyObjectId):
