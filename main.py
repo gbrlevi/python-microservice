@@ -10,11 +10,8 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "https://nutricao-frontend-final-k9n8.vercel.app",  # Replace with your real URL
-        "http://localhost:3000",  # For local development
-    ],
-    allow_credentials=True,  # Now you can use True
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
