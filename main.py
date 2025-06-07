@@ -18,6 +18,6 @@ app.add_middleware(
 
 app.include_router(planos.router, prefix="/planos", tags=["Planos Alimentares"])
 
-@app.get("", tags=["Root"])
+@app.get("/", tags=["Root"])
 def read_root():
     return {"status": "API de Planos Alimentares está online!"}
