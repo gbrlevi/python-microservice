@@ -6,8 +6,8 @@ from datetime import datetime, date
 # --- INÍCIO DA CORREÇÃO ---
 # Trocamos as importações relativas ('..') por importações absolutas ('app.')
 # Isso diz ao Python para sempre começar a busca a partir da pasta raiz do pacote 'app'.
-from app.models import PlanoMestreBase, PlanoMestre, PlanoMestreCreate, PlanoMestreComItens, ItemPlanoBase, ItemPlano, ItemPlanoCreate, PyObjectId
-from app.config import planos_mestre_collection, itens_plano_collection
+from models import PlanoMestreBase, PlanoMestre, PlanoMestreCreate, PlanoMestreComItens, ItemPlanoBase, ItemPlano, ItemPlanoCreate, PyObjectId
+from config import planos_mestre_collection, itens_plano_collection
 # --- FIM DA CORREÇÃO ---
 
 
