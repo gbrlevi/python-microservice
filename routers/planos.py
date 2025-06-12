@@ -2,11 +2,10 @@ from fastapi import APIRouter, HTTPException, Body, status
 from typing import List
 from pymongo import ReturnDocument
 from datetime import datetime, date
+from typing import List, Optional
 
-# --- INÍCIO DA CORREÇÃO ---
 from models import PlanoMestreBase, PlanoMestre, PlanoMestreCreate, PlanoMestreComItens, ItemPlanoBase, ItemPlano, ItemPlanoCreate, PyObjectId
 from config import planos_mestre_collection, itens_plano_collection
-# --- FIM DA CORREÇÃO ---
 
 
 router = APIRouter()
@@ -24,14 +23,14 @@ async def create_plano_mestre(plano_data: PlanoMestreCreate):
     return plano_criado
 
 @router.get("/", response_model=List[PlanoMestre])
-async def get_all_planos_mestre():
-    planos_cursor = planos_mestre_collection.find()
+async def get_all_planos_mestre(paciente_id: Optional[str] = None):
+    query = {}
+    if paciente_id:
+        query["paciente_id"] = paciente_id
     
-    planos_list = []
-    for plano in planos_cursor:
-        plano["id"] = str(plano["_id"])
-        planos_list.append(plano)
-        
+    planos_cursor = planos_mestre_collection.find(query)
+    
+    planos_list = [PlanoMestre(**plano) for plano in planos_cursor]
     return planos_list
 
 @router.get("/{plano_id}", response_model=PlanoMestreComItens)
